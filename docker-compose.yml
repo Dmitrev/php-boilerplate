@@ -1,0 +1,50 @@
+services:
+    nginx:
+        build:
+          context: .
+          dockerfile: ./docker/images/nginx/1.23/Dockerfile
+        networks:
+            - www
+        depends_on:
+          - php
+        ports:
+            - 8080:80
+        volumes:
+            # binding all the folders from the application
+            - ./src:/var/data/www:cached
+    php:
+        networks:
+          - www
+        build:
+            context: .
+            dockerfile: ./docker/images/php/8.1/Dockerfile
+        volumes:
+            # Mount point for project files
+            - ./src:/var/data/www:cached
+    
+            # mount composer config files to not lose them
+            - ./docker/data/composer/.composer:/root/.composer
+    
+            # Load PHP ini files
+            - ./docker/config/php/8.1/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+    
+            # Load PHP-FPM config files
+            - ./docker/config/php-fpm/8.1/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
+    
+        working_dir: /var/data/www
+    db:
+        image: mariadb:10.5
+        networks:
+            - www
+        volumes:
+            - ./docker/data/mysql:/var/lib/mysql
+        ports:
+        - 33060:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+            MYSQL_DATABASE: database
+
+networks:
+    www:
