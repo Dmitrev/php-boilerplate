@@ -16,13 +16,17 @@ If you are looking for a setup where everything is pre-installed, you might be b
 To get started clone the repo. Note: replace the `my-project` at end of the following command.
 
 ```sh
-git clone https://github.com/Dmitrev/php-boilerplate.git my-project
+git clone --depth 1 https://github.com/Dmitrev/php-boilerplate.git my-project
 
 ```
 
 ## Delete files you don't need
 
-TODO
+Right now the only way to get the files is using git clone which also gets you a copy of the git folder, you will not need it, so you should delete it! 
+
+```
+rm -rf .git
+```
 
 ## Run docker
 
