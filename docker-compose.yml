@@ -19,14 +19,14 @@ services:
             context: .
             dockerfile: ./docker/images/php/8.3/Dockerfile
             args:
-                USER_NAME: dmitri
+                USER_NAME: ${USER}
 
         volumes:
             # Mount point for project files
             - ./src:/var/data/www:cached
     
             # mount composer config files to not lose them
-            - ./docker/data/composer/.composer:/root/.composer
+            - ./docker/data/composer/.composer:/${USER}/.composer
     
             # Load PHP ini files
             - ./docker/config/php/8.3/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
