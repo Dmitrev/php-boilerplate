@@ -2,7 +2,7 @@ services:
     nginx:
         build:
           context: .
-          dockerfile: ./docker/images/nginx/1.23/Dockerfile
+          dockerfile: ./docker/images/nginx/1.27/Dockerfile
         networks:
             - www
         depends_on:
@@ -17,7 +17,10 @@ services:
           - www
         build:
             context: .
-            dockerfile: ./docker/images/php/8.1/Dockerfile
+            dockerfile: ./docker/images/php/8.3/Dockerfile
+            args:
+                USER_NAME: dmitri
+
         volumes:
             # Mount point for project files
             - ./src:/var/data/www:cached
@@ -26,14 +29,14 @@ services:
             - ./docker/data/composer/.composer:/root/.composer
     
             # Load PHP ini files
-            - ./docker/config/php/8.1/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+            - ./docker/config/php/8.3/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
     
             # Load PHP-FPM config files
-            - ./docker/config/php-fpm/8.1/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
+            - ./docker/config/php-fpm/8.3/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
     
         working_dir: /var/data/www
     db:
-        image: mariadb:10.5
+        image: mariadb:11.5
         networks:
             - www
         volumes:
