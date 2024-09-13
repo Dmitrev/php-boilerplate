@@ -1,7 +1,7 @@
 FROM php:8.3-fpm
 
 ARG USER_NAME
-RUN useradd $USER_NAME
+RUN useradd -m $USER_NAME
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
