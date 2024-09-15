@@ -33,7 +33,7 @@ rm -rf .git
 This is mostly only need for Linux to ensure that the directory is created with your user's ownership
 ```
 mkdir src
-
+```
 
 ## Create docker ENV file
 
