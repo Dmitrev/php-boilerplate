@@ -6,7 +6,7 @@ ARG GROUP_ID
 RUN userdel -f www-data &&\
     if getent group www-data; then groupdel www-data; fi &&\
     groupadd  -g ${GROUP_ID} www-data &&\
-    useradd -l -u ${USER_ID} -d /home/www-data -g www-data www-data &&\
+    useradd -m -l -u ${USER_ID} -d /home/www-data -g www-data www-data &&\
     # install -d -m 0755 -o www-data -g www-data /home/www-data &&\
     chown --changes --silent --no-dereference --recursive \
         --from=33:33 ${USER_ID}:${GROUP_ID} \
