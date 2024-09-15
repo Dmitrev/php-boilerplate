@@ -28,6 +28,13 @@ Right now the only way to get the files is using git clone which also gets you a
 rm -rf .git
 ```
 
+## create a source directory
+
+This is mostly only need for Linux to ensure that the directory is created with your user's ownership
+```
+mkdir src
+```
+
 ## Run docker
 
 ```sh
