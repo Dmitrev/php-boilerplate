@@ -33,6 +33,13 @@ rm -rf .git
 This is mostly only need for Linux to ensure that the directory is created with your user's ownership
 ```
 mkdir src
+
+
+## Create docker ENV file
+
+creates an `.env` file with your user and group id which will be used to build the docker containers
+```sh
+echo "UID=$(id -u)\nGID=$(id -g)" >> .env
 ```
 
 ## Run docker
