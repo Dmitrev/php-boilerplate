@@ -19,14 +19,15 @@ services:
             context: .
             dockerfile: ./docker/images/php/8.3/Dockerfile
             args:
-                USER_NAME: ${USER}
+                USER_ID: ${UID:-0}
+                GROUP_ID: ${GID:-0}
 
         volumes:
             # Mount point for project files
             - ./src:/var/data/www:cached
     
             # mount composer config files to not lose them
-            - ./docker/data/composer/.composer:/${USER}/.composer
+            - composer:/${USER}/.composer
     
             # Load PHP ini files
             - ./docker/config/php/8.3/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
@@ -40,7 +41,7 @@ services:
         networks:
             - www
         volumes:
-            - ./docker/data/mysql:/var/lib/mysql
+            - dbdata:/var/lib/mysql
         ports:
         - 33060:3306
         environment:
@@ -51,3 +52,6 @@ services:
 
 networks:
     www:
+volumes:
+    dbdata:
+    composer:
