@@ -17,7 +17,7 @@ services:
           - www
         build:
             context: .
-            dockerfile: ./docker/images/php/8.3/Dockerfile
+            dockerfile: ./docker/images/php/8.4/Dockerfile
             args:
                 USER_ID: ${UID:-0}
                 GROUP_ID: ${GID:-0}
@@ -30,10 +30,10 @@ services:
             - composer:/${USER}/.composer
     
             # Load PHP ini files
-            - ./docker/config/php/8.3/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+            - ./docker/config/php/8.4/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
     
             # Load PHP-FPM config files
-            - ./docker/config/php-fpm/8.3/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
+            - ./docker/config/php-fpm/8.4/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
     
         working_dir: /var/data/www
     db:
